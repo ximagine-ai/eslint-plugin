@@ -20,19 +20,19 @@ runTest({
         beforeAll(() => {
           // setup
         });
-
+      
         beforeEach(() => {
           // setup
         });
-
+      
         it("test1", () => {});
-
+      
         it("test2", () => {});
-
+      
         afterEach(() => {
           // cleanup
         });
-
+      
         afterAll(() => {
           // cleanup
         });
@@ -52,7 +52,7 @@ runTest({
           b: 2
         };
       `,
-      options: [{ objectPattern: "Api$" }],
+      options: [{ objectPattern: "API$" }],
     },
     // Non-describe test functions should be ignored
     {
@@ -82,14 +82,14 @@ runTest({
     $`
       class User {
         name: string;
-
+      
         age: number;
-
+      
         constructor(name: string, age: number) {
           this.name = name;
           this.age = age;
         }
-
+      
         greet(): string {
           return \`Hello, \${this.name}!\`;
         }
@@ -127,13 +127,13 @@ runTest({
         const serviceName = "test_service";
         let worker: TestWorker;
         const config = { timeout: 1000 };
-
+      
         beforeAll(() => {
           // setup
         });
-
+      
         it("test1", () => {});
-
+      
         it("test2", () => {});
       });
     `,
@@ -144,11 +144,11 @@ runTest({
         abstract protected config: Config;
         private readonly id: string;
         private worker: Worker;
-
+      
         constructor() {
           this.id = generateId();
         }
-
+      
         start(): void {
           this.worker.start();
         }
@@ -163,9 +163,9 @@ runTest({
         describe("inner", () => {
           const innerSetup = {};
           let testData: TestData;
-
+      
           beforeEach(() => {});
-
+      
           it("should work", () => {});
         });
       });
@@ -175,19 +175,19 @@ runTest({
     // Only check objects matching pattern
     {
       code: $`
-        const userApi = {
+        const userAPI = {
           get: () => {},
           post: () => {}
         };
       `,
       output: $`
-        const userApi = {
+        const userAPI = {
           get: () => {},
-
+        
           post: () => {}
         };
       `,
-      options: [{ objectPattern: "Api$" }],
+      options: [{ objectPattern: "API$" }],
       errors: [
         { messageId: "missingPaddingLine", data: { type: "object property" } },
       ],
@@ -217,19 +217,19 @@ runTest({
           beforeAll(() => {
             // setup
           });
-
+        
           beforeEach(() => {
             // setup
           });
-
+        
           it("test1", () => {});
-
+        
           it("test2", () => {});
-
+        
           afterEach(() => {
             // cleanup
           });
-
+        
           afterAll(() => {
             // cleanup
           });
@@ -248,12 +248,12 @@ runTest({
       code: $`
         describe("api", () => {
           beforeAll(() => {});
-          describe("subApi", () => {
+          describe("subAPI", () => {
             beforeEach(() => {});
             it("test1", () => {});
             afterEach(() => {});
           });
-          describe("subApi2", () => {
+          describe("subAPI2", () => {
             beforeEach(() => {});
             it("test2", () => {});
             afterEach(() => {});
@@ -264,23 +264,23 @@ runTest({
       output: $`
         describe("api", () => {
           beforeAll(() => {});
-
-          describe("subApi", () => {
+        
+          describe("subAPI", () => {
             beforeEach(() => {});
-
+        
             it("test1", () => {});
-
+        
             afterEach(() => {});
           });
-
-          describe("subApi2", () => {
+        
+          describe("subAPI2", () => {
             beforeEach(() => {});
-
+        
             it("test2", () => {});
-
+        
             afterEach(() => {});
           });
-
+        
           afterAll(() => {});
         });
       `,
@@ -303,11 +303,11 @@ runTest({
       code: $`
         defineTestGroup("api", () => {
           beforeEach(() => {});
-          defineTestGroup("subApi", () => {
+          defineTestGroup("subAPI", () => {
             beforeAll(() => {});
             runTest("test1", () => {});
           });
-          defineTestGroup("subApi2", () => {
+          defineTestGroup("subAPI2", () => {
             beforeAll(() => {});
             runTest("test2", () => {});
           });
@@ -316,16 +316,16 @@ runTest({
       output: $`
         defineTestGroup("api", () => {
           beforeEach(() => {});
-
-          defineTestGroup("subApi", () => {
+        
+          defineTestGroup("subAPI", () => {
             beforeAll(() => {});
-
+        
             runTest("test1", () => {});
           });
-
-          defineTestGroup("subApi2", () => {
+        
+          defineTestGroup("subAPI2", () => {
             beforeAll(() => {});
-
+        
             runTest("test2", () => {});
           });
         });
@@ -364,12 +364,12 @@ runTest({
         class User {
           name: string;
           age: number;
-
+        
           constructor(name: string, age: number) {
             this.name = name;
             this.age = age;
           }
-
+        
           greet(): string {
             return \`Hello, \${this.name}!\`;
           }
@@ -405,15 +405,15 @@ runTest({
           private readonly id: string;
           public name: string;
           static version = "1.0";
-
+        
           constructor() {
             this.id = Math.random().toString();
           }
-
+        
           getName(): string {
             return this.name;
           }
-
+        
           setName(value: string): void {
             this.name = value;
           }
@@ -442,9 +442,9 @@ runTest({
         describe("api", () => {
           const config = {};
           let worker: Worker;
-
+        
           it("first test", () => {});
-
+        
           it("second test", () => {});
         });
       `,
